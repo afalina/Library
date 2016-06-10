@@ -1,15 +1,14 @@
 <?php
 require 'config.php';
 
-$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
-$db->set_charset(DATABASE_CHARSET);
-if ($db->connect-errno) {
+$db = new mysqli('127.0.0.1', 'root', '4444', 'library');
+$db->set_charset('utf8');
+if ($db->connect_errno) {
     echo "can't connect to mysql";
 }
 
 //получаем текст книги в переменную
 $txt_file = file_get_contents('books/Стивен_Кинг-Зеленая_миля-1996.txt');
-echo $txt_file;
 
 $sentences = [];
 //с помощью регулярных выражений разбиваем текст на отдельные предложения
