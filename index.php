@@ -36,6 +36,7 @@ if ($_POST['submit']) {
         $path = "'"."books/".$_FILES["filename"]["name"]."'";
         echo $path;
         $txt_file = file_get_contents($path);
+        echo $txt_file;
 
         $sentences = [];
         //с помощью регулярных выражений разбиваем текст на отдельные предложения
