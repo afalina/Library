@@ -2,13 +2,13 @@
 require 'config.php';
 $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
 $db->set_charset(DATABASE_CHARSET);
-if ($mysqli->connect-errno) {
+if ($db->connect-errno) {
     echo "can't connect to mysql";
 } else {
     echo "connected to mysql!";
-    $sql2 = "show columns from books";
-    $result2 = mysqli_query($db, $sql2);
-    if (!$result2) die("uuups");
+    //$sql2 = "show columns from books";
+    //$result2 = mysqli_query($db, $sql2);
+    //if (!$result2) die("uuups");
 }
 
 
@@ -22,8 +22,8 @@ if ($_POST['submit']) {
     $sql = "INSERT INTO books (`author`,`title`, `published_year`) 
               VALUES ('$author', '$title', '$year');";
     echo $sql.'<br>';
-    $sql2 = "show columns from books";
-    $result = mysqli_query($db, $sql2);
+    //$sql2 = "show columns from books";
+    $result = mysqli_query($db, $sql);
     if (!$result) die("Error saving");
 
     /*if($_FILES["filename"]["size"] > 1024*5*1024) {
