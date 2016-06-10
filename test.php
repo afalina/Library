@@ -5,6 +5,8 @@ $db = new mysqli('127.0.0.1', 'root', '4444', 'library');
 $db->set_charset('utf8');
 if ($db->connect_errno) {
     echo "can't connect to mysql";
+} else {
+    echo "connected to mysql!";
 }
 
 //получаем текст книги в переменную
@@ -19,6 +21,7 @@ $sql = 'INSERT INTO records VALUES ';
 
 foreach ($sentences[0] as $sentence) {
     $sentence = $db->escape_string(trim($sentence));
+    echo $sentences.'<br>';
     $sql .= '(' . $id . ', "' . $sentence . '"),'; 
     //echo $sentence.'<br>';
 }
