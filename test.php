@@ -17,15 +17,15 @@ $sentences = [];
 //разделители: точка, !, ?, начало строки, конец строки
 preg_match_all("/[^.!?\r\n]+[.!?\r\n]+/", $txt_file, $sentences);
 $id = 1;
-$sql = 'INSERT INTO records VALUES ';
+$sql = "INSERT INTO records VALUES ";
 
 foreach ($sentences[0] as $sentence) {
     $sentence = $db->escape_string(trim($sentence));
-    $sql .= '(' . $id . ', "' . $sentence . '"),'; 
+    $sql .= "(" . $id . ", '" . $sentence . "'),"; 
     //echo $sentence.'<br>';
 }
 $sql = rtrim($sql, ",");
-$sql .= ';';
+$sql .= ";";
 echo $sql;
 
 $result = mysqli_query($db, $sql);
