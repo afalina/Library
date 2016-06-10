@@ -19,7 +19,8 @@ if ($_POST['submit']) {
     $sql = "INSERT INTO books (`author`,`title`, `published_year`) 
               VALUES ('$author', '$title', '$year');";
     echo $sql.'<br>';
-    $result = mysqli_query($db, $sql);
+    $sql2 = "show columns from books";
+    $result = mysqli_query($db, $sql2);
     if (!$result) die("Error saving");
 
     /*if($_FILES["filename"]["size"] > 1024*5*1024) {
