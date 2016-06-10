@@ -21,12 +21,12 @@ $sql = 'INSERT INTO records VALUES ';
 
 foreach ($sentences[0] as $sentence) {
     $sentence = $db->escape_string(trim($sentence));
-    echo $sentences.'<br>';
     $sql .= '(' . $id . ', "' . $sentence . '"),'; 
     //echo $sentence.'<br>';
 }
 $sql = rtrim($sql, ",");
 $sql .= ';';
+echo $sql;
 
 $result = mysqli_query($db, $sql);
 if (!$result) die("Error saving");
