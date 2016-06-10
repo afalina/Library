@@ -1,6 +1,6 @@
 <?php
 require 'config.php';
-$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
+$db = new mysqli('127.0.0.1', DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
 $db->set_charset(DATABASE_CHARSET);
 if ($db->connect_errno) {
     echo "can't connect to mysql";
