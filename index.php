@@ -4,7 +4,10 @@ $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME)
 $db->set_charset(DATABASE_CHARSET);
 if ($mysqli->connect-errno) {
     echo "can't connect to mysql";
+} else {
+    echo "connected to mysql!";
 }
+
 
 if ($_POST['submit']) {
     $year = intval($_POST['year']);
