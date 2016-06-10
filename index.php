@@ -40,17 +40,19 @@ if ($_POST['submit']) {
         preg_match_all("/[^.!?\r\n]+[.!?\r\n]+/", $txt_file, $sentences);
 
         $id = $db->insert_id;
-        $insertSql = 'INSERT INTO records VALUES ';
+
+        $insertSql = "INSERT INTO records VALUES ";
 
         foreach ($sentences[0] as $sentence) {
             $sentence = $db->escape_string(trim($sentence));
-            $insertSql .= '(' . $id . ', "' . $sentence . '"),';
+            $insertSql .= "(" . $id . ", '" . $sentence . "'),"; 
         }
         $insertSql = rtrim($insertSql, ",");
-        $insertSql .= ';';
+        $insertSql .= ";";
 
         $result = mysqli_query($db, $insertSql);
         if (!$result) die("Error saving");
+
    } else {
       echo("Ошибка загрузки файла");
    }
