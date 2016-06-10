@@ -17,12 +17,12 @@ if ($_POST['submit']) {
     }
     if (!$result) die("Error saving");
 
-    if($_FILES["filename"]["size"] > 1024*5*1024) {
+    /*if($_FILES["filename"]["size"] > 1024*5*1024) {
         echo ("Размер файла превышает 5 мегабайта");
         exit;
-    }
+    }*/
    // Проверяем загружен ли файл
-   if(is_uploaded_file($_FILES["filename"]["tmp_name"])) {
+   /*if(is_uploaded_file($_FILES["filename"]["tmp_name"])) {
         // Если файл загружен успешно, перемещаем его
         // из временной директории в конечную
         move_uploaded_file($_FILES["filename"]["tmp_name"], "books/".$_FILES["filename"]["name"]);
@@ -48,7 +48,7 @@ if ($_POST['submit']) {
         if (!$result) die("Error saving");
    } else {
       echo("Ошибка загрузки файла");
-   }
+   }*/
 
 }
 
@@ -57,7 +57,7 @@ if ($_POST['submit']) {
     автор <input name="author" required size="30">
     название <input name="title" required size="30">
     год издания <input name="year" required size="30">
-    <br><input type="file" name="filename"><br>
+    <!--<br><input type="file" name="filename"><br> -->
     <input type="submit" name="submit" value="New book">
   </form>
 <?php
