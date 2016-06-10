@@ -11,13 +11,15 @@ if ($mysqli->connect-errno) {
 
 if ($_POST['submit']) {
     $year = intval($_POST['year']);
+    echo $year.'<br>';
     $title = $_POST['title'];
+    echo $title.'<br>';
     $author = $_POST['author'];
-    if ($year > 0) {
-      $sql = "INSERT INTO books (`author`,`title`, `published_year`) 
+    echo $author.'<br>';
+    $sql = "INSERT INTO books (`author`,`title`, `published_year`) 
               VALUES ('$author', '$title', '$year');";
-      $result = mysqli_query($db, $sql);
-    }
+    echo $sql.'<br>';
+    $result = mysqli_query($db, $sql);
     if (!$result) die("Error saving");
 
     /*if($_FILES["filename"]["size"] > 1024*5*1024) {
