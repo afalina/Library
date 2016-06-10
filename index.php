@@ -16,8 +16,7 @@ if ($_POST['submit']) {
     echo $title.'<br>';
     $author = $_POST['author'];
     echo $author.'<br>';
-    $sql = "INSERT INTO books (`author`,`title`, `published_year`) 
-              VALUES ('$author', '$title', '$year');";
+    $sql = "INSERT INTO books (`author`,`title`, `published_year`) VALUES ('$author', '$title', '$year');";
     echo $sql.'<br>';
     //$sql2 = "show columns from books";
     $result = mysqli_query($db, $sql);
