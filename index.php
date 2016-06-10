@@ -6,6 +6,7 @@ if ($db->connect-errno) {
     echo "can't connect to mysql";
 } else {
     echo "connected to mysql!";
+    echo $db;
     //$sql2 = "show columns from books";
     //$result2 = mysqli_query($db, $sql2);
     //if (!$result2) die("uuups");
