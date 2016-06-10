@@ -33,7 +33,7 @@ if ($_POST['submit']) {
         move_uploaded_file($_FILES["filename"]["tmp_name"], "books/".$_FILES["filename"]["name"]);
 
         //открываем для разбивания
-        $txt_file = file_get_contents('books/'.$_FILES["filename"]["name"]);
+        $txt_file = file_get_contents("'books/'.$_FILES["filename"]["name"]");
         echo 'books/'.$_FILES["filename"]["name"];
         $sentences = [];
         //с помощью регулярных выражений разбиваем текст на отдельные предложения
