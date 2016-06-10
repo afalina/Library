@@ -34,7 +34,7 @@ if ($_POST['submit']) {
 
         //открываем для разбивания
         $txt_file = file_get_contents('books/'.$_FILES["filename"]["name"]);
-        echo $txt_file;
+        echo 'books/'.$_FILES["filename"]["name"];
         $sentences = [];
         //с помощью регулярных выражений разбиваем текст на отдельные предложения
         //разделители: точка, !, ?, начало строки, конец строки
