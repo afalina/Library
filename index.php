@@ -6,7 +6,7 @@ if ($db->connect_errno) {
     echo "can't connect to mysql";
 }
 
-if ($_POST['submit']) {
+if (filter_input(INPUT_POST, 'submit')) {
     $year = intval($_POST['year']);
     echo $year.'<br>';
     $title = $_POST['title'];
