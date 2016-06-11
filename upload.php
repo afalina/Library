@@ -13,8 +13,12 @@
    {
      // Если файл загружен успешно, перемещаем его
      // из временной директории в конечную
+     //$url = '/Users/afalina/Public/Library/books/';
      $url = '/var/www/html/books/';
-     move_uploaded_file($_FILES["filename"]["tmp_name"], $url.basename($_FILES["filename"]["name"]));
+
+    if(move_uploaded_file($_FILES["filename"]["tmp_name"], $url.basename($_FILES["filename"]["name"]))){
+      echo 'Удалось переместить файл';
+    } else {echo 'не удалось переместить файл';}
      echo 'Файл загружен в '.$url.basename($_FILES["filename"]["name"]);
    } else {
       echo 'Ошибка загрузки файла';
