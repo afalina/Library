@@ -27,15 +27,17 @@ if ($_POST['submit']) {
         exit;
     }
    // Проверяем загружен ли файл
-   if(is_uploaded_file($_FILES["filename"]["tmp_name"])) {
-        // Если файл загружен успешно, перемещаем его
-        // из временной директории в конечную
-        move_uploaded_file($_FILES["filename"]["tmp_name"], "books/".$_FILES["filename"]["name"]);
+   if(is_uploaded_file($_FILES["filename"]["tmp_name"]))
+   {
+     // Если файл загружен успешно, перемещаем его
+     // из временной директории в конечную
+     //$url = '/Users/afalina/Public/Library/books/';
+     $url = '/var/www/books/';
+
+    move_uploaded_file($_FILES["filename"]["tmp_name"], $url.($_FILES["filename"]["name"]));
 
         //открываем для разбивания
-        $path = "'"."books/".$_FILES["filename"]["name"]."'";
-        echo $path;
-        $txt_file = file_get_contents($path);
+        $txt_file = file_get_contents($url.($_FILES["filename"]["name"]));
         echo $txt_file;
 
         $sentences = [];
