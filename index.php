@@ -4,10 +4,7 @@ $db = new mysqli('127.0.0.1', 'root', '4444', 'library');
 $db->set_charset('utf8');
 if ($db->connect_errno) {
     echo "can't connect to mysql";
-} else {
-    echo "connected to mysql!";
 }
-
 
 if ($_POST['submit']) {
     $year = intval($_POST['year']);
@@ -17,8 +14,6 @@ if ($_POST['submit']) {
     $author = $_POST['author'];
     echo $author.'<br>';
     $sql = "INSERT INTO books (`author`,`title`, `published_year`) VALUES ('$author', '$title', '$year');";
-    echo $sql.'<br>';
-    //$sql2 = "show columns from books";
     $result = mysqli_query($db, $sql);
     if (!$result) die("Error saving");
 
@@ -37,7 +32,6 @@ if ($_POST['submit']) {
 
         //открываем для разбивания
         $txt_file = file_get_contents($url.($_FILES["filename"]["name"]));
-        echo $txt_file;
 
         $sentences = [];
         //с помощью регулярных выражений разбиваем текст на отдельные предложения
