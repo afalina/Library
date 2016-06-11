@@ -9,14 +9,16 @@ if ($db->connect_errno) {
     echo "connected to mysql!";
 }
 
+$url = 'var/www/books/'
+
 //получаем текст книги в переменную
-$txt_file = file_get_contents("books/Стивен_Кинг-Зеленая_миля-1996.txt");
+$txt_file = file_get_contents($url.'Стивен_Кинг-Зеленая_миля-1996.txt');
 
 $sentences = [];
 //с помощью регулярных выражений разбиваем текст на отдельные предложения
 //разделители: точка, !, ?, начало строки, конец строки
 preg_match_all("/[^.!?\r\n]+[.!?\r\n]+/", $txt_file, $sentences);
-$id = 1;
+$id = 14;
 $sql = "INSERT INTO records VALUES ";
 
 foreach ($sentences[0] as $sentence) {
@@ -26,10 +28,8 @@ foreach ($sentences[0] as $sentence) {
 }
 $sql = rtrim($sql, ",");
 $sql .= ";";
-echo $sql;
 
 $result = mysqli_query($db, $sql);
 if (!$result) die("Error saving");
-//echo $sql;
 
 ?>
