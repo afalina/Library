@@ -13,8 +13,9 @@
    {
      // Если файл загружен успешно, перемещаем его
      // из временной директории в конечную
-     move_uploaded_file($_FILES["filename"]["tmp_name"], "/books".$_FILES["filename"]["name"]);
-     echo 'Файл загружен!';
+     $url = '/var/www/html/books/';
+     move_uploaded_file($_FILES["filename"]["tmp_name"], $url.basename($_FILES["filename"]["name"]));
+     echo 'Файл загружен в '.$url.basename($_FILES["filename"]["name"]);
    } else {
       echo 'Ошибка загрузки файла';
    }
