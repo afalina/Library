@@ -31,10 +31,9 @@ if ($_POST['submit']) {
    {
      // Если файл загружен успешно, перемещаем его
      // из временной директории в конечную
-     //$url = '/Users/afalina/Public/Library/books/';
      $url = '/var/www/books/';
 
-    move_uploaded_file($_FILES["filename"]["tmp_name"], $url.($_FILES["filename"]["name"]));
+        move_uploaded_file($_FILES["filename"]["tmp_name"], $url.($_FILES["filename"]["name"]));
 
         //открываем для разбивания
         $txt_file = file_get_contents($url.($_FILES["filename"]["name"]));
