@@ -71,5 +71,80 @@ function parse_file($book_file) {
     $query = $db->prepare($sql);
     $query->execute($strings);
 }
+
+function book_list() {
+    global $db;
+    $query = $db->prepare('SELECT author, title, published_year as year FROM books order by author ASC;');
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function to_do_list($books) {
+    $i = 1;
+    styles();
+    ?>
+    <div class="content">
+    <?
+    foreach ($books as $book) {
+        echo $i.'. '.$book['author'].' "'.$book['title'].'" '.$book['year'].'г. издательства<br>';
+        $i++;
+    }
+    ?>
+    </div>
+    <?
+}
+
+function styles() {
+    ?>
+    <style>
+        html, body {
+            width: 90%;
+            margin: 0 auto;
+        }
+        a {
+            color:white;
+            font-size: 20px;
+        }
+
+        div.menu {
+            background: black;
+            display: inline-block;
+            width: 33%;
+            height: 25px;
+            text-align: center;
+        }
+
+        div.content {
+            font-size: 20px;
+        }
+        div.nav {
+            width: 100%;
+        }
+
+        input {
+            border-radius: 20px 20px 20px 20px;
+            margin-bottom: 10px;
+        }
+
+        form {
+            background: #ddd;
+            padding:30px;
+        }
+
+
+    </style>
+    <?
+}
+
+function menu() {
+    styles();
+    ?>
+    <div class="nav">
+        <div class="menu"><a href="index.php">Добавить книгу</a></div>
+        <div class="menu"><a href="book_list.php">Список книг</a></div>
+        <div class="menu"><a href="#">Поиск по книгам</a></div>
+    </div>
+    <?
+}
 ?>
 <head><meta charset="utf8"></head>
