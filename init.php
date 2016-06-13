@@ -97,9 +97,15 @@ function to_do_list($books) {
 function styles() {
     ?>
     <style>
-        html, body {
+        html {
+            background: url(background.jpg);
+        }
+        body {
             width: 90%;
+            color: white;
+            --background: rgba(255, 255, 255, 0.7);
             margin: 0 auto;
+            font-family: Arial;
         }
         a {
             color:white;
@@ -110,8 +116,9 @@ function styles() {
             background: black;
             display: inline-block;
             width: 33%;
-            height: 25px;
+            height: 35px;
             text-align: center;
+            padding-top: 10px;
         }
 
         div.content {
@@ -126,8 +133,14 @@ function styles() {
             margin-bottom: 10px;
         }
 
-        form {
-            background: #ddd;
+        input.submit-button {
+            font-size: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .content {
+            background: rgba(0,0,0,0.9);
             padding:30px;
         }
 
@@ -140,9 +153,9 @@ function menu() {
     styles();
     ?>
     <div class="nav">
-        <div class="menu"><a href="index.php">Добавить книгу</a></div>
-        <div class="menu"><a href="book_list.php">Список книг</a></div>
-        <div class="menu"><a href="#">Поиск по книгам</a></div>
+        <a href="index.php"><div class="menu">Добавить книгу</div></a>
+        <a href="book_list.php"><div class="menu">Список книг</div></a>
+        <a href="#"><div class="menu">Поиск по книгам</div></a>
     </div>
     <?
 }

@@ -17,15 +17,17 @@ menu();
 <h1>Добавьте книгу</h1>
 <div class="content">
 <form method="post" action="<?= $_SERVER["PHP_SELF"]?>" enctype="multipart/form-data">
-    <br>автор <input name="author" required size="30">
-    <br>название <input name="title" required size="30">
-    <br>год издания <input name="year" required size="30">
-    <br><input type="file" name="filename" required><br>
-    <input type="submit" name="submit" value="New book">
+  <table>
+    <tr><td>Автор</td><td><input name="author" required size="30"></td></tr>
+    <tr><td>Название</td><td><input name="title" required size="30"></td></tr>
+    <tr><td>Год издания</td><td><input name="year" required size="30"></td></tr>
+    <tr>
+      <td>Выберите файл с книгой</td>
+      <td><input type="file" name="filename" required></td>
+    </tr>
+  </table>
+  <input class="submit-button" type="submit" name="submit" value="Добавить книгу">
 </form>
   <br>
   </div>
 </body>
-<?php
-
-?>
