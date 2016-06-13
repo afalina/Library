@@ -1,13 +1,8 @@
 <?
 require '../configs/config.php';
-//соединение с базой данных
-$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
-$db->set_charset(DATABASE_CHARSET);
-if ($db->connect_errno) {
-    echo "can't connect to mysql";
-} else {
-    echo "connected";
-}
+require 'connection.php';
+
+$db = new DBConnection();
 
 function escape_html($string) {
     return htmlspecialchars($string, ENT_QUOTES | ENT_HTML5, 'UTF-8', true);
@@ -15,13 +10,17 @@ function escape_html($string) {
 
 function add_book($author, $title, $year, $book_file) {
     global $db;
-    $sql = "INSERT INTO books (`author`,`title`, `published_year`) VALUES ('$author', '$title', '$year');";
-    $result = mysqli_query($db, $sql);
-    if (!$result) {
-        die("Error saving");
-    } else {
-        upload_file($book_file);
-    }
+    $query = $db->prepare('
+        INSERT books SET
+            author=:author,
+            title=:title,
+            published_year=:year
+    ');
+    $query->bindValue(':author', $author, PDO::PARAM_STR);
+    $query->bindValue(':title', $title, PDO::PARAM_STR);
+    $query->bindValue(':year', $year, PDO::PARAM_INT);
+    $query->execute();
+    upload_file($book_file);
 }
 
 function upload_file($book_file) {
@@ -48,21 +47,29 @@ function parse_file($book_file) {
         //разделители: точка, !, ?, начало строки, конец строки
     preg_match_all("/[^.!?\r\n]+[.!?\r\n]+/", $txt_file, $sentences);
 
-    $id = $db->insert_id;
+    //получаем айдишник последней вставки
+    $id = $db->lastInsertId();
 
+    //первая часть запроса
     $sql = "INSERT INTO records VALUES ";
 
+    //для хранения предложений сделаем массив, из него потом будут вставляться в подготовленный запрос строки
+    $strings = array();
+
     foreach ($sentences[0] as $sentence) {
-        $sentence = $db->escape_string(trim($sentence));
-        $sql .= "(" . $id . ", '" . $sentence . "'),"; 
+        $sentence = (trim($sentence));
+        $strings[] = $sentence;
     }
+
+    for ($i = 0; $i < count($strings); $i++) {
+        $sql .= '('.$id.',?),';
+    }
+
     $sql = rtrim($sql, ",");
     $sql .= ";";
 
-    $result = mysqli_query($db, $sql);
-    if (!$result) {
-        die("Ошибка сохранения предложений");
-    }
+    $query = $db->prepare($sql);
+    $query->execute($strings);
 }
 ?>
 <head><meta charset="utf8"></head>
