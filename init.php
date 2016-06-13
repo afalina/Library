@@ -1,10 +1,10 @@
 <?
 //соединение с базой данных
     //проверка на глобальном серваке
-$db = new mysqli('127.0.0.1', 'root', '4444', 'library');
+$db = new mysqli('127.0.0.1', 'reader', 'bwtlibrary2016', 'library');
     //проверка на локальном серваке
 //$db = new mysqli('127.0.0.1', 'root', 'sa', 'library');
-$db->set_charset('utf8');
+//$db->set_charset('utf8');
 
 if ($db->connect_errno) {
     echo "can't connect to mysql";
