@@ -1,19 +1,13 @@
 <?
+require '../configs/config.php';
 //соединение с базой данных
-    //проверка на глобальном серваке
-$db = new mysqli('127.0.0.1', 'reader', 'bwtlibrary2016', 'library');
-    //проверка на локальном серваке
-//$db = new mysqli('127.0.0.1', 'root', 'sa', 'library');
-//$db->set_charset('utf8');
-
+$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
+$db->set_charset(DATABASE_CHARSET);
 if ($db->connect_errno) {
     echo "can't connect to mysql";
 } else {
     echo "connected";
 }
-
-$url = '/var/www/books/'; //путь для хранения книг для глобального сервака
-//$url = '/Users/afalina/Public/books/'; //путь для хранения книг для локального сервака
 
 function escape_html($string) {
     return htmlspecialchars($string, ENT_QUOTES | ENT_HTML5, 'UTF-8', true);
@@ -31,7 +25,6 @@ function add_book($author, $title, $year, $book_file) {
 }
 
 function upload_file($book_file) {
-    global $url;
     if ($book_file["size"] > 1024*5*1024) {
         echo ("Размер файла превышает 5 мегабайта");
         exit;
@@ -40,16 +33,15 @@ function upload_file($book_file) {
     if (is_uploaded_file($_FILES["filename"]["tmp_name"])){
     // Если файл загружен успешно, перемещаем его
     // из временной директории в конечную
-        move_uploaded_file($_FILES["filename"]["tmp_name"], $url.($_FILES["filename"]["name"]));
+        move_uploaded_file($_FILES["filename"]["tmp_name"], BOOK_PATH.($_FILES["filename"]["name"]));
     }
     parse_file($book_file);
 }
 
 function parse_file($book_file) {
     global $db;
-    global $url;
     //открываем для разбивания
-    $txt_file = file_get_contents($url.($_FILES["filename"]["name"]));
+    $txt_file = file_get_contents(BOOK_PATH.($_FILES["filename"]["name"]));
 
     $sentences = [];
         //с помощью регулярных выражений разбиваем текст на отдельные предложения
