@@ -1,10 +1,8 @@
 <?php
 require 'init.php';
-
 if (filter_input(INPUT_POST, 'submit')) {
   add_book($_POST['author'], $_POST['title'], $_POST['year'], $_FILES["filename"]);
 }
-
 ?>
 
 <head>
@@ -23,7 +21,7 @@ menu();
     <tr><td>Год издания</td><td><input name="year" required size="30"></td></tr>
     <tr>
       <td>Выберите файл с книгой</td>
-      <td><input type="file" name="filename" required></td>
+      <td><input type="file" name="filename" required accept=".txt"></td>
     </tr>
   </table>
   <input class="submit-button" type="submit" name="submit" value="Добавить книгу">

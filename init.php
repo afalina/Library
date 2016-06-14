@@ -70,6 +70,15 @@ function parse_file($book_file) {
 
     $query = $db->prepare($sql);
     $query->execute($strings);
+    if ($query) success_adding();
+}
+
+function success_adding() {
+    ?>
+    <script>
+        alert("Книга успешно добавлена!");
+    </script>
+    <?
 }
 
 function book_list() {
