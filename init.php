@@ -204,7 +204,8 @@ function searched_by_text_mysql($text) {
         books.published_year AS published_year 
         FROM records 
         INNER JOIN books ON records.book_id=books.id
-        WHERE records.record LIKE ?;');
+        WHERE records.record LIKE ?
+        LIMIT 50;');
     $query->bindValue(1, "%$text%", PDO::PARAM_STR);
     $start_time = microtime(true);
     $query->execute();
