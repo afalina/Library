@@ -1,7 +1,16 @@
 <?php
 require 'init.php';
+
 if (filter_input(INPUT_POST, 'submit')) {
-  add_book($_POST['author'], $_POST['title'], $_POST['year'], $_FILES["filename"]);
+  if ($_POST['year'] > getdate()['year'] || $_POST['year'] < 1901 || $_FILES["filename"]['type'] != "text/plain") {
+    ?>
+    <script>
+      alert("В веденные вами данные закралась ошибка. Проверьте, пожалуйста. ");
+    </script>
+    <?
+  } else {
+    add_book($_POST['author'], $_POST['title'], $_POST['year'], $_FILES["filename"]);
+  }
 }
 ?>
 

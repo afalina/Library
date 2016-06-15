@@ -1,7 +1,7 @@
 <?
 require '../configs/config.php';
 require 'connection.php';
-
+date_default_timezone_set('Europe/Kiev');
 $db = new DBConnection();
 
 function escape_html($string) {
