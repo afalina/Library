@@ -80,7 +80,7 @@ function parse_file($book_file) {
 function success_adding($time) {
     ?>
     <script>
-        alert("Книга успешно добавлена за " + <?echo $time?> + "ms");
+        alert("Книга успешно добавлена за " + <?echo $time?> + " сек");
     </script>
     <?
 }
@@ -214,7 +214,7 @@ function searched_by_text_mysql($text) {
     $start_time = microtime(true);
     $query->execute();
     $executing_time = microtime(true) - $start_time;
-    echo '<p style="font-size:7pt;">Время выполнения запроса: '.$executing_time.' ms</p>';
+    echo '<p style="font-size:7pt;">Время выполнения запроса: '.$executing_time.' сек</p>';
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
