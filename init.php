@@ -168,6 +168,11 @@ function styles() {
             margin-top: 40px;
         }
 
+        .active {
+            background: black;
+            color: white;
+        }
+
         .content {
             background: rgba(0,0,0,0.9);
             padding:30px;
@@ -184,7 +189,7 @@ function menu() {
     <div class="nav">
         <a href="index.php"><div class="menu">Добавить книгу</div></a>
         <a href="book_list.php"><div class="menu">Список книг</div></a>
-        <a href="#"><div class="menu">Поиск по книгам</div></a>
+        <a href="books_search.php"><div class="menu">Поиск по книгам</div></a>
     </div>
     <?
 }
