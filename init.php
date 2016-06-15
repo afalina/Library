@@ -41,7 +41,9 @@ function parse_file($book_file) {
     global $db;
     //открываем для разбивания
     $txt_file = file_get_contents(BOOK_PATH.($_FILES["filename"]["name"]));
-
+    if (!mb_detect_encoding($txt_file, 'UTF-8', true)) {
+        $txt_file = mb_convert_encoding($txt_file, 'UTF-8', 'CP1251');
+    }
     $sentences = [];
         //с помощью регулярных выражений разбиваем текст на отдельные предложения
         //разделители: точка, !, ?, начало строки, конец строки
