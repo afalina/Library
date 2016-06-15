@@ -69,14 +69,16 @@ function parse_file($book_file) {
     $sql .= ";";
 
     $query = $db->prepare($sql);
+    $start_time = microtime(true);
     $query->execute($strings);
-    if ($query) success_adding();
+    $executing_time = microtime(true)-$start_time;
+    if ($query) success_adding($executing_time);
 }
 
-function success_adding() {
+function success_adding($time) {
     ?>
     <script>
-        alert("Книга успешно добавлена!");
+        alert("Книга успешно добавлена за " + <?echo $time?> + "ms");
     </script>
     <?
 }
