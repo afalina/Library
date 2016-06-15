@@ -51,7 +51,7 @@ function parse_file($book_file) {
     $id = $db->lastInsertId();
 
     //первая часть запроса
-    $sql = "INSERT INTO records VALUES ";
+    $sql = "INSERT INTO records(book_id, record) VALUES ";
 
     //для хранения предложений сделаем массив, из него потом будут вставляться в подготовленный запрос строки
     $strings = array();
@@ -92,13 +92,29 @@ function to_do_list($books) {
     $i = 1;
     styles();
     ?>
-    <div class="content">
+    <div id="content" class="content">
     <?
     foreach ($books as $book) {
         echo $i.'. '.$book['author'].' "'.$book['title'].'" '.$book['year'].'г. издательства<br>';
         $i++;
     }
     ?>
+    </div>
+    <?
+}
+
+function founded_list($list) {
+    $i = 1;
+    styles();
+    ?>
+    <div id="content" class="found-content">
+        <?
+        foreach ($list as $item) {
+            echo $i.'. '.$item['author'].' "'.$item['title'].'" '.$item['published_year'].'г. издательства<br>';
+            echo $item['record'].'<br><br><hr>';
+            $i++;
+        }
+        ?>
     </div>
     <?
 }
@@ -136,10 +152,14 @@ function styles() {
         div.nav {
             width: 100%;
         }
+        div.found-content {
+            font-size: 10pt;
+        }
 
         input {
             border-radius: 20px 20px 20px 20px;
             margin-bottom: 10px;
+            font-size: 20px;
         }
 
         input.submit-button {
@@ -167,6 +187,25 @@ function menu() {
         <a href="#"><div class="menu">Поиск по книгам</div></a>
     </div>
     <?
+}
+
+
+function searched_by_text_mysql($text) {
+    global $db;
+    $query = $db->prepare('SELECT 
+        records.record AS record,
+        books.author AS author, 
+        books.title AS title,
+        books.published_year AS published_year 
+        FROM records 
+        INNER JOIN books ON records.book_id=books.id
+        WHERE records.record LIKE ?;');
+    $query->bindValue(1, "%$text%", PDO::PARAM_STR);
+    $start_time = microtime(true);
+    $query->execute();
+    $executing_time = microtime(true) - $start_time;
+    echo '<p style="font-size:7pt;">Время выполнения запроса: '.$executing_time.' ms</p>';
+    return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 <head><meta charset="utf8"></head>
