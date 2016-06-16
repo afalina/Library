@@ -200,6 +200,12 @@ function menu() {
     <?
 }
 
+function searched_by_text_sphinx($text) {
+    global $sphinxConnection;
+    $query = $sphinxConnection->query("SELECT * FROM test1 WHERE MATCH('$text')");
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 function searched_by_text_mysql($text) {
     global $db;
