@@ -1,8 +1,10 @@
 <?
 require '../configs/config.php';
 require 'connection.php';
+require 'sphinx.php';
 date_default_timezone_set('Europe/Kiev');
 $db = new DBConnection();
+$sphinxConnection = new SphinxConnection();
 
 function escape_html($string) {
     return htmlspecialchars($string, ENT_QUOTES | ENT_HTML5, 'UTF-8', true);
@@ -196,6 +198,12 @@ function menu() {
         <a href="books_search.php"><div class="menu">Поиск по книгам</div></a>
     </div>
     <?
+}
+
+function searched_by_text_sphinx($text) {
+    global $sphinxConnection;
+    $query = $sphinxConnection->query("SELECT * FROM test1 WHERE MATCH($text)");
+    return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
 

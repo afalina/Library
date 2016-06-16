@@ -34,7 +34,7 @@ $(function(){
      var search = $("#search-mysql").val();
      $.ajax({
        type: "POST",
-       url: "search.php",
+       url: "search_sphinx.php",
        data: {"search": search},
        cache: false,                                
        success: function(response){
