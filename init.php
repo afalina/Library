@@ -229,4 +229,7 @@ function searched_by_text_mysql($text) {
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-<head><meta charset="utf8"></head>
+<head>
+    <meta charset="utf8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>

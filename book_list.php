@@ -1,10 +1,6 @@
 <?
 require 'init.php';
 ?>
-<head>
-    <meta charset="utf-8">
-</head>
-
 <body>
 <?
 menu();

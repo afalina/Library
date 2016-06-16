@@ -2,11 +2,6 @@
 require 'init.php';
 menu();
 ?>
-<head>
-  <meta charset="utf8">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-</head>
-
 <body>
 <h1>Поиск по книгам</h1>
     <div class="content">

@@ -13,10 +13,6 @@ if (filter_input(INPUT_POST, 'submit')) {
   }
 }
 ?>
-
-<head>
-  <meta charset="utf8">
-</head>
 <body>
 <?
 menu();
