@@ -12,8 +12,8 @@ menu();
     <div class="content">
     <form method="post" id="search-form" action="">
         <input size="70" name="search_text" id="search-mysql" placeholder="Введите предложение или его часть">
-        <input class="submit-button active" type="submit" id="mysql" value="Mysql">
-        <input class="submit-button" type="submit" id="sphinx" disabled="true" value="Sphinx">
+        <input class="submit-button" type="submit" id="mysql" disabled="true" value="Mysql">
+        <input class="submit-button active" type="submit" id="sphinx" value="Sphinx">
         <input class="submit-button" type="submit" id="lucene" disabled="true" value="Lucene">
         <input class="submit-button" type="submit" id="elastic" disabled="true" value="Elastic">
     </form>
@@ -34,7 +34,7 @@ $(function(){
      var search = $("#search-mysql").val();
      $.ajax({
        type: "POST",
-       url: "search_sphinx.php",
+       url: "sphinx_search.php",
        data: {"search": search},
        cache: false,                                
        success: function(response){

@@ -202,7 +202,10 @@ function menu() {
 
 function searched_by_text_sphinx($text) {
     global $sphinxConnection;
-    $query = $sphinxConnection->query("SELECT * FROM test1 WHERE MATCH('$text')");
+    $start_time = microtime(true);
+    $query = $sphinxConnection->query("SELECT * FROM test1 WHERE MATCH('".$text."')");
+    $executing_time = microtime(true) - $start_time;
+    echo '<p style="font-size:7pt;">Время выполнения запроса: '.$executing_time.' сек</p>';
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
