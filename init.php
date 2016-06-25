@@ -31,10 +31,10 @@ function upload_file($book_file) {
         exit;
     }
     // Проверяем загружен ли файл
-    if (is_uploaded_file($_FILES["filename"]["tmp_name"])){
+    if (is_uploaded_file($book_file["tmp_name"])){
     // Если файл загружен успешно, перемещаем его
     // из временной директории в конечную
-        move_uploaded_file($_FILES["filename"]["tmp_name"], BOOK_PATH.($_FILES["filename"]["name"]));
+        move_uploaded_file($book_file["tmp_name"], BOOK_PATH.($book_file["name"]));
     }
     parse_file($book_file);
 }
@@ -77,7 +77,7 @@ function parse_file($book_file) {
     $query->execute($strings);
     $executing_time = microtime(true)-$start_time;
     if ($query) success_adding($executing_time);
-    exec("indexer --config /etc/sphinx/sphinx.conf --rotate test1");
+    //exec("indexer --rotate test1");
 }
 
 function success_adding($time) {
@@ -154,7 +154,7 @@ function styles() {
         }
 
         div.content {
-            font-size: 20px;
+            font-size: 14px;
         }
         div.nav {
             width: 100%;
@@ -205,16 +205,16 @@ function searched_by_text_sphinx($text) {
     global $sphinxConnection;
     $start_time = microtime(true);
     $query = $sphinxConnection->query("SELECT * FROM test1 WHERE MATCH('".$text."') LIMIT 50");
-        
     $executing_time = microtime(true) - $start_time;
-    echo '<p style="font-size:10pt;">Время выполнения запроса:<b> '.round($executing_time, 4).' сек</b></p>';
+    echo '<p style="font-size:10pt;">Время выполнения запроса:<b> '.round($executing_time,4).' сек</b></p>';
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
+                        
 
 
 function searched_by_text_mysql($text) {
     global $db;
-        $query = $db->prepare('SELECT 
+        /*$query = $db->prepare('SELECT 
         	records.record AS record,
                 books.author AS author, 
                 books.title AS title,
@@ -222,8 +222,17 @@ function searched_by_text_mysql($text) {
     	        FROM records 
         	INNER JOIN books ON records.book_id=books.id
                 WHERE records.record LIKE ?
+                LIMIT 50;');*/
+        $query = $db->prepare('SELECT 
+        	mirror_records.record AS record,
+                books.author AS author, 
+                books.title AS title,
+                books.published_year AS published_year 
+    	        FROM mirror_records 
+        	INNER JOIN books ON mirror_records.book_id=books.id
+                WHERE MATCH(record) AGAINST(?)
                 LIMIT 50;');
-    $query->bindValue(1, "%$text%", PDO::PARAM_STR);
+    $query->bindValue(1, "$text", PDO::PARAM_STR);
     $start_time = microtime(true);
     $query->execute();
     $executing_time = microtime(true) - $start_time;
